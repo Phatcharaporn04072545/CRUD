@@ -1,0 +1,12 @@
+{
+  "Users": [
+    {
+      "id": 1,
+      "fullname": "Phatcharaporn Amornsak",
+      "email": "a@test.com",
+      "password": "1q2w3e4r",
+      "gender": "female"
+      
+    }
+  ]
+}

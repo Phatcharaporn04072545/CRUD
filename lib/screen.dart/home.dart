@@ -97,7 +97,6 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home'),
       ),
       drawer: const SideMenu(),
       body: mainBody,
@@ -109,7 +108,7 @@ class _HomeState extends State<Home> {
             getUsers();
           }
         },
-        child: const Icon(Icons.person_add_alt_1),
+        child: const Icon(Icons.person_add_alt_1)
       ),
     );
   }

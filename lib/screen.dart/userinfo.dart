@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_20/models/user.dart';
+import 'package:flutter_application_20/models/products.dart';
+
 
 
 
@@ -13,7 +14,7 @@ class UserInfo extends StatefulWidget {
 class _UserInfoState extends State<UserInfo> {
   @override
   Widget build(BuildContext context) {
-    var user = ModalRoute.of(context)!.settings.arguments as Users;
+    var product = ModalRoute.of(context)!.settings.arguments as Product;
 
     return Scaffold(
       appBar: AppBar(
@@ -25,16 +26,16 @@ class _UserInfoState extends State<UserInfo> {
           child: ListView(
             children: [
               ListTile(
-                title: Text("Full Name"),
-                subtitle: Text("${user.fullname}"),
+                title: Text("Name"),
+                subtitle: Text("${product.name}"),
               ),
               ListTile(
-                title: Text("Email"),
-                subtitle: Text("${user.email}"),
+                title: Text("list"),
+                subtitle: Text("${product.list}"),
               ),
               ListTile(
-                title: Text("Gender"),
-                subtitle: Text("${user.gender}"),
+                title: Text("Date"),
+                subtitle: Text("${product.date}"),
               ),
             ],
           ),

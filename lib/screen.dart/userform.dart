@@ -65,10 +65,10 @@ class __UserFormState extends State<UserForm> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  fnameInputField(),
-                  emailInputField(),
-                  passwordInputField(),
-                  genderFormInput(),
+                  nameInputField(),
+                  listInputField(),
+                  quantityInputField(),
+                  dateInputField(),
                   SizedBox(
                     height: 10.0,
                   ),
@@ -78,7 +78,7 @@ class __UserFormState extends State<UserForm> {
         ));
   }
 
-  Widget fnameInputField() {
+  Widget nameInputField() {
     return TextFormField(
       initialValue: user.fullname,
       decoration: InputDecoration(
@@ -95,11 +95,11 @@ class __UserFormState extends State<UserForm> {
     );
   }
 
-  Widget emailInputField() {
+  Widget listInputField() {
     return TextFormField(
       initialValue: user.email,
       decoration: InputDecoration(
-        labelText: 'Email',
+        labelText: 'รายการสินค้า',
         icon: Icon(Icons.email),
       ),
       validator: (value) {
@@ -115,12 +115,12 @@ class __UserFormState extends State<UserForm> {
     );
   }
 
-  Widget passwordInputField() {
+  Widget dateInputField() {
     return TextFormField(
       initialValue: user.password,
       obscureText: true,
       decoration:
-          InputDecoration(labelText: 'password', icon: Icon(Icons.lock)),
+          InputDecoration(labelText: 'Date', icon: Icon(Icons.lock)),
       validator: (value) {
         if (value!.isEmpty) {
           return 'This field is required';
@@ -131,7 +131,7 @@ class __UserFormState extends State<UserForm> {
     );
   }
 
-  Widget genderFormInput() {
+  Widget quantityInputField() {
     // ignore: unused_local_variable
     var initGen = "None";
     try {
@@ -143,7 +143,7 @@ class __UserFormState extends State<UserForm> {
     }
     return DropdownButtonFormField(
         decoration: InputDecoration(
-          labelText: 'Gender:',
+          labelText: 'จำนวนสินค้า:',
           icon: Icon(Icons.man),
         ),
         value: 'None',

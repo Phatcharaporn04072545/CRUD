@@ -37,6 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   http: ^1.1.0
   email_validator: ^2.1.17
+  get: ^4.6.5
 
 dev_dependencies:
   flutter_test:
@@ -62,7 +63,11 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   # assets:
-  #   - images/a_dot_burr.jpeg
+  #   - assets/1.jpg
+  #   - assets/6.jpg
+  #   - assets/11.jpg
+  #   - assets/16.jpg
+
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

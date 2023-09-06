@@ -1,13 +1,12 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_application_20/models/config.dart';
 import 'package:flutter_application_20/models/user.dart';
 import 'package:flutter_application_20/screen.dart/home.dart';
 import 'package:flutter_application_20/screen.dart/login.dart';
+// import 'package:flutter_application_20/screen.dart/order.dart';
 
 class SideMenu extends StatelessWidget {
   const SideMenu({super.key});
-
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +14,6 @@ class SideMenu extends StatelessWidget {
     String accountEmail = "N/A";
     String accountUrl =
         "https://images.pexels.com/photos/825947/pexels-photo-825947.jpeg?auto=compress&cs=tinysrgb&w=600";
-
 
     Users user = Configure.login;
     //print(user.toJson().toString());
@@ -40,21 +38,28 @@ class SideMenu extends StatelessWidget {
             leading: Icon(Icons.home),
             title: Text('Home'),
             onTap: () {
-              Navigator.pushNamed(context, Home.routeName);
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Home()));
             },
           ),
           ListTile(
-            leading: Icon(Icons.lock),
-            title: Text('Login'),
+            leading: Icon(Icons.shopping_cart),
+            title: Text('Shopping Cart'),
             onTap: () {
-              Navigator.pushNamed(context, Login.routeName);
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => Login()));
             },
-          )
+          ),
+          ListTile(
+            leading: Icon(Icons.settings),
+            title: Text('Order'),
+            // onTap: () {
+            //   Navigator.push(
+            //       context, MaterialPageRoute(builder: (context) => Login()));
+            // },
+          ),
         ],
       ),
     );
   }
 }
-
-
-

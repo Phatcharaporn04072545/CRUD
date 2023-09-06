@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter_application_20/models/config.dart';
 import 'package:flutter_application_20/models/user.dart';
+// import 'package:flutter_application_20/screen.dart/order.dart';
 import 'package:http/http.dart' as http;
-
 import 'home.dart';
 
 class Login extends StatefulWidget {
@@ -30,7 +30,7 @@ class _LoginState extends State<Login> {
           .showSnackBar(SnackBar(content: Text('users or password invalid')));
     } else {
       Configure.login = login_result[0];
-      Navigator.pushNamed(context, Home.routeName);
+      Navigator.push(context, MaterialPageRoute(builder: (context) => Home())); 
     }
     return;
   }
@@ -73,7 +73,7 @@ class _LoginState extends State<Login> {
 
   Widget emailInputField() {
     return TextFormField(
-      initialValue: 'a@a.com',
+      //initialValue: 'a@a.com',
       decoration: InputDecoration(
         labelText: 'Email',
         icon: Icon(Icons.email),
@@ -93,7 +93,7 @@ class _LoginState extends State<Login> {
 
   Widget passwordInputField() {
     return TextFormField(
-      initialValue: '1q2w3e4r',
+      //initialValue: '1q2w3e4r',
       obscureText: true,
       decoration:
           InputDecoration(labelText: 'password', icon: Icon(Icons.lock)),

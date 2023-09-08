@@ -4,6 +4,7 @@ import 'package:flutter_application_20/models/products.dart';
 
 
 
+
 class UserInfo extends StatefulWidget {
   const UserInfo({super.key});
 
@@ -14,7 +15,7 @@ class UserInfo extends StatefulWidget {
 class _UserInfoState extends State<UserInfo> {
   @override
   Widget build(BuildContext context) {
-    var product = ModalRoute.of(context)!.settings.arguments as Product;
+    var user = ModalRoute.of(context)!.settings.arguments as Product;
 
     return Scaffold(
       appBar: AppBar(
@@ -27,16 +28,19 @@ class _UserInfoState extends State<UserInfo> {
             children: [
               ListTile(
                 title: Text("Name"),
-                subtitle: Text("${product.name}"),
+                subtitle: Text("${user.name}"),
               ),
               ListTile(
                 title: Text("list"),
-                subtitle: Text("${product.list}"),
+                subtitle: Text("${user.list}"),
+              ),ListTile(
+                title: Text("Quantity"),
+                subtitle: Text("${user.quantity}"),
               ),
               ListTile(
                 title: Text("Date"),
-                subtitle: Text("${product.date}"),
-              ),
+                subtitle: Text("${user.date}"),
+              )
             ],
           ),
         ),

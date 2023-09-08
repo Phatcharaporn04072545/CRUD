@@ -18,8 +18,8 @@ class SideMenu extends StatelessWidget {
     Users user = Configure.login;
     //print(user.toJson().toString());
     if (user.id != null) {
-      accountName = user.fullname!;
-      accountEmail = user.email!;
+      accountName = user.email!;
+      accountEmail = user.password!;
     }
     return Drawer(
       child: Column(

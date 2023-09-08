@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_20/models/config.dart';
+import 'package:flutter_application_20/models/products.dart';
 import 'package:flutter_application_20/models/user.dart';
 import 'package:flutter_application_20/screen.dart/sidemenu.dart';
 import 'package:flutter_application_20/screen.dart/userform.dart';
@@ -16,18 +17,18 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   Widget mainBody = Container();
 
-  List<Users> userList = [];
+  List<Product> userList = [];
   Future<void> getUsers() async {
-    var url = Uri.http(Configure.server, "users");
+    var url = Uri.http(Configure.server, "products");
     var resp = await http.get(url);
     setState(() {
-      userList = usersFromJson(resp.body);
+      userList = productFromJson(resp.body);
       mainBody = showUsers();
     });
   }
 
   Future<void> removeUsers(user) async {
-    var url = Uri.http(Configure.server, "users/${user.id}");
+    var url = Uri.http(Configure.server, "products/${user.id}");
     var resp = await http.delete(url);
     print(resp.body);
     return;
@@ -37,14 +38,14 @@ class _HomeState extends State<Home> {
     return ListView.builder(
       itemCount: userList.length,
       itemBuilder: (context, index) {
-        Users user = userList[index];
+        Product user = userList[index];
         return Dismissible(
           key: UniqueKey(),
           direction: DismissDirection.endToStart,
           child: Card(
             child: ListTile(
-              title: Text("${user.fullname}"),
-              subtitle: Text("${user.email}"),
+              title: Text("${user.id}"),
+              subtitle: Text("${user.name}"),
               onTap: () {
                 Navigator.push(
                     context,

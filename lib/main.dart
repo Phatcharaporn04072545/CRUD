@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_20/screen.dart/home.dart';
-import 'package:flutter_application_20/screen.dart/login.dart';
+
 
 
 void main() {
@@ -13,13 +13,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Users CRUD',
-      initialRoute: '/',
-      routes: {
-        '/': (context) => const Home(),
-        '/login': (context) => const Login(),
-      },
+      home: Home(),
     );
   }
 }

@@ -1,6 +1,7 @@
 
 import 'dart:convert';
-import 'package:email_validator/email_validator.dart';
+// import 'package:email_validator/email_validator.dart';
+import 'package:flutter_application_20/models/products.dart';
 import 'package:http/http.dart' as http ;
 import 'package:flutter/material.dart';
 import 'package:flutter_application_20/models/config.dart';
@@ -16,10 +17,10 @@ class UserForm extends StatefulWidget {
 class __UserFormState extends State<UserForm> {
   final _formkey = GlobalKey<FormState>();
   //Users user = Users();
-  late Users user;
+  late Product user = Product();
 
   Future<void> addNewUser(user) async {
-    var url = Uri.http(Configure.server, "users");
+    var url = Uri.http(Configure.server, "user");
     var resp = await http.post(url,
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
@@ -33,13 +34,13 @@ class __UserFormState extends State<UserForm> {
   }
 
   Future<void> updateData(user) async {
-    var url = Uri.http(Configure.server, "users/${user.id}");
+    var url = Uri.http(Configure.server, "user/${user.id}");
     var resp = await http.put(url,
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: jsonEncode(user.toJson()));
-    var rs = usersFromJson("[${resp.body}]");
+    var rs = productFromJson("[${resp.body}]");
     if (rs.length == 1) {
       Navigator.pop(context, "refresh");
     }
@@ -49,10 +50,10 @@ class __UserFormState extends State<UserForm> {
   @override
   Widget build(BuildContext context) {
     try {
-      user = ModalRoute.of(context)!.settings.arguments as Users;
-      print(user.fullname);
+      user = ModalRoute.of(context)!.settings.arguments as Product;
+      print(user.name);
     } catch (e) {
-      user = Users();
+      // user = Users();
     }
     return Scaffold(
         appBar: AppBar(
@@ -80,7 +81,7 @@ class __UserFormState extends State<UserForm> {
 
   Widget nameInputField() {
     return TextFormField(
-      initialValue: user.fullname,
+      initialValue: user.name,
       decoration: InputDecoration(
         labelText: 'Fullname:',
         icon: Icon(Icons.person),
@@ -91,34 +92,34 @@ class __UserFormState extends State<UserForm> {
         }
         return null;
       },
-      onSaved: (newValue) => user.fullname = newValue,
+      onSaved: (newValue) => user.name = newValue,
     );
   }
 
-  Widget listInputField() {
+  Widget quantityInputField() {
     return TextFormField(
-      initialValue: user.email,
+      // initialValue: user.email,
       decoration: InputDecoration(
-        labelText: 'รายการสินค้า',
+        labelText: 'จำนวนสินค้า',
         icon: Icon(Icons.email),
       ),
-      validator: (value) {
-        if (value!.isEmpty) {
-          return 'This field is requried';
-        }
-        if (!EmailValidator.validate(value)) {
-          return 'It is not email format';
-        }
-        return null;
-      },
-      onSaved: (newValue) => user.email = newValue!,
+      // validator: (value) {
+      //   if (value!.isEmpty) {
+      //     return 'This field is requried';
+      //   }
+      //   if (!EmailValidator.validate(value)) {
+      //     return 'It is not email format';
+      //   }
+      //   return null;
+      // },
+      onSaved: (newValue) => user.quantity = newValue!,
     );
   }
 
   Widget dateInputField() {
     return TextFormField(
-      initialValue: user.password,
-      obscureText: true,
+      initialValue: user.date,
+      // obscureText: true,
       decoration:
           InputDecoration(labelText: 'Date', icon: Icon(Icons.lock)),
       validator: (value) {
@@ -127,36 +128,36 @@ class __UserFormState extends State<UserForm> {
         }
         return null;
       },
-      onSaved: (newValue) => user.password = newValue!,
+      onSaved: (newValue) => user.date = newValue!,
     );
   }
 
-  Widget quantityInputField() {
+  Widget listInputField() {
     // ignore: unused_local_variable
     var initGen = "None";
     try {
-      if (!user.gender!.isEmpty) {
-        initGen = user.gender!;
+      if (!user.list!.isEmpty) {
+        initGen = user.list!;
       }
     } catch (e) {
       initGen = "None";
     }
     return DropdownButtonFormField(
         decoration: InputDecoration(
-          labelText: 'จำนวนสินค้า:',
+          labelText: 'รายการสินค้า:',
           icon: Icon(Icons.man),
         ),
         value: 'None',
-        items: Configure.gender.map((String val) {
+        items: Configure.list.map((String val) {
           return DropdownMenuItem(
             value: val,
             child: Text(val),
           );
         }).toList(),
         onChanged: (value) {
-          user.gender = value;
+          user.list = value;
         },
-        onSaved: (newValue) => user.gender);
+        onSaved: (newValue) => user.list);
   }
 
   Widget SubmitButton() {
@@ -165,9 +166,10 @@ class __UserFormState extends State<UserForm> {
         if (_formkey.currentState!.validate()) {
           _formkey.currentState!.save();
           print(user.toJson().toString());
-          addNewUser(user);
           if (user.id == null) {
             addNewUser(user);
+            Navigator.pop(context, "refresh");
+
           } else {
             updateData(user);
           }

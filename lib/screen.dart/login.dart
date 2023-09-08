@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 import 'home.dart';
 
 class Login extends StatefulWidget {
-  static const routeName = '/login';
+  //static const routeName = '/login';
   const Login({super.key});
   @override
   State<Login> createState() => _LoginState();
@@ -15,22 +15,26 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   final _formkey = GlobalKey<FormState>();
-  Users user = Users();
+  // Users user = Users();
+  String email = "";
+  String password = "";
 
-  Future<void> login(Users user) async {
-    var params = {"email": user.email, "password": user.password};
+  late List<Users> loginResult;
+
+  Future<void> loginState(email, password) async {
+    var params = {"email": email, "password": password};
 
     var url = Uri.http(Configure.server, "users", params);
     var resp = await http.get(url);
+    loginResult = usersFromJson(resp.body);
     print(resp.body);
-    List<Users> login_result = usersFromJson(resp.body);
-    print(login_result.length);
-    if (login_result.isEmpty) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('users or password invalid')));
+    if (loginResult.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("email or password invalid")),
+      );
     } else {
-      Configure.login = login_result[0];
-      Navigator.push(context, MaterialPageRoute(builder: (context) => Home())); 
+      Configure.login = loginResult[0];
+      Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
     }
     return;
   }
@@ -87,7 +91,7 @@ class _LoginState extends State<Login> {
         }
         return null;
       },
-      onSaved: (newValue) => user.email = newValue!,
+      onSaved: (newValue) => email = newValue!,
     );
   }
 
@@ -103,7 +107,7 @@ class _LoginState extends State<Login> {
         }
         return null;
       },
-      onSaved: (newValue) => user.password = newValue!,
+      onSaved: (newValue) => password = newValue!,
     );
   }
 
@@ -112,8 +116,10 @@ class _LoginState extends State<Login> {
       onPressed: () {
         if (_formkey.currentState!.validate()) {
           _formkey.currentState!.save();
-          print(user.toJson().toString());
-          login(user); // Corrected function call
+          loginState(email, password);
+          ScaffoldMessenger.of(context)
+              .showSnackBar(const SnackBar(content: Text("Connect to server")));
+          // Corrected function call
         }
       },
       child: Text('Login'),
